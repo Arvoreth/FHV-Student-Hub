@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="resources.documentTitle">Resources – FHV Student Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'fhv-blue': '#97cff1',
+                        'fhv-violet': '#C0A1CC',
+                        'fhv-red': '#ee7551',
+                        'fhv-yellow': '#ffdc5f',
+                        'fhv-dark': '#16161d',
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-fhv-dark text-fhv-dark dark:text-gray-100 min-h-screen font-sans antialiased">
+    <header class="bg-white dark:bg-gray-800/50 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-50 px-4 sm:px-6 py-3 sm:py-4 relative">
+        <div class="max-w-7xl mx-auto flex w-full items-center gap-2 sm:gap-3">
+            <a href="index.html" class="text-lg sm:text-2xl font-bold bg-gradient-to-r from-fhv-blue to-fhv-violet bg-clip-text text-transparent shrink-0 min-w-0">FHV Student Hub</a>
+            <nav class="hidden md:flex flex-1 flex-wrap items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-medium min-w-0 ml-1 lg:ml-4" aria-label="Main">
+                <a href="index.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="courses.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.courses">Courses</a>
+                <a href="resources.html" class="nav-link nav-link--active rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 transition" aria-current="page" data-i18n="nav.resources">Resources</a>
+                <a href="benefits.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.benefits">Benefits</a>
+            </nav>
+            <div class="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
+                <div class="hidden md:flex items-center gap-0.5 sm:gap-1">
+                    <div class="relative">
+                        <button id="profile-dropdown" type="button" class="flex max-w-[10rem] sm:max-w-none items-center gap-1 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition text-xs sm:text-sm font-medium text-fhv-dark dark:text-gray-100">
+                            <span class="truncate">Aisha Faller</span>
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="profile-menu" class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hidden py-1 z-50">
+                            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                                <p class="font-semibold text-fhv-dark dark:text-white">Aisha Faller</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Computer Science</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-600">
+                                <p class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-fhv-dark dark:text-gray-200">Matriculation: 12345678</p>
+                            </div>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.notifications">Notifications</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.settings">Profile Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.logout">Logout</a>
+                        </div>
+                    </div>
+                    <button type="button" id="language-toggle" class="language-toggle inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 text-xs font-bold text-fhv-dark dark:text-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all" aria-label="Language: English. Click to switch to German.">
+                        <span class="language-text-en" aria-hidden="true">EN</span>
+                        <span class="language-text-de hidden" aria-hidden="true">DE</span>
+                    </button>
+                    <button id="theme-toggle" type="button" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-label="Toggle theme">
+                        <svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+                        <svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+                <button id="nav-menu-toggle" type="button" class="md:hidden p-2 rounded-lg text-fhv-dark dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-controls="mobile-nav-panel" aria-expanded="false" aria-label="Open navigation menu">
+                    <svg id="nav-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                    <svg id="nav-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-nav-panel" class="hidden md:hidden absolute left-0 right-0 top-full max-h-[min(85vh,calc(100dvh-4rem))] overflow-y-auto border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg z-[60]" role="dialog" aria-label="Main navigation">
+            <nav class="flex flex-col p-2 max-w-7xl mx-auto" aria-label="Main">
+                <a href="index.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="courses.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.courses">Courses</a>
+                <a href="resources.html" class="nav-link nav-link--active rounded-lg px-4 py-3 text-base font-medium transition" aria-current="page" data-i18n="nav.resources">Resources</a>
+                <a href="benefits.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.benefits">Benefits</a>
+            </nav>
+            <div class="border-t border-gray-200 dark:border-gray-700 p-3 max-w-7xl mx-auto">
+                <div class="relative">
+                    <button id="profile-dropdown-mobile" type="button" class="flex w-full items-center justify-between gap-2 rounded-lg p-3 text-left text-sm font-medium text-fhv-dark dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <span>Aisha Faller</span>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="profile-menu-mobile" class="mt-1 hidden w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-1 shadow-md">
+                        <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                            <p class="font-semibold text-fhv-dark dark:text-white">Aisha Faller</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Computer Science</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-600">
+                            <p class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-fhv-dark dark:text-gray-200">Matriculation: 12345678</p>
+                        </div>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.notifications">Notifications</a>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.settings">Profile Settings</a>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.logout">Logout</a>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between gap-3 border-t border-gray-100 pt-3 dark:border-gray-700/80">
+                    <button type="button" id="language-toggle-mobile" class="language-toggle inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 text-xs font-bold text-fhv-dark dark:text-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all" aria-label="Language: English. Click to switch to German.">
+                        <span class="language-text-en" aria-hidden="true">EN</span>
+                        <span class="language-text-de hidden" aria-hidden="true">DE</span>
+                    </button>
+                    <button id="theme-toggle-mobile" type="button" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-label="Toggle theme">
+                        <svg id="sun-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+                        <svg id="moon-icon-mobile" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="nav-backdrop" class="fixed inset-0 z-40 bg-black/25 transition-opacity hidden" aria-hidden="true"></div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-2" data-i18n="resources.breadcrumb"><a href="index.html" class="hover:text-fhv-blue transition">Dashboard</a> / Resources</p>
+        <h1 class="text-2xl sm:text-3xl font-semibold text-fhv-dark dark:text-white mb-2" data-i18n="resources.pageTitle">Learning Resources</h1>
+        <p class="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mb-10" data-i18n="resources.intro">Central entry points for materials, peer learning, and European university network opportunities.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            <article class="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-fhv-blue/20 text-fhv-blue mb-4">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                </div>
+                <h2 class="text-xl font-semibold text-fhv-dark dark:text-white mb-2" data-i18n="resources.card1.title">Lecture Materials</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 flex-1 mb-6" data-i18n="resources.card1.body">Lecture notes of the current and past semesters, old exams and shared files for your program.</p>
+                <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration/" class="inline-flex justify-center items-center w-full rounded-xl bg-fhv-blue px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-fhv-blue/90 transition" data-i18n="resources.card1.cta">Open lecture materials</a>
+            </article>
+
+            <article class="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-fhv-violet/25 text-fhv-violet mb-4">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.09 9.09 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                </div>
+                <h2 class="text-xl font-semibold text-fhv-dark dark:text-white mb-2" data-i18n="resources.card2.title">Study Groups</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 flex-1 mb-6" data-i18n="resources.card2.body">Find or organise study sessions and exam prep groups within your study program.</p>
+                <a href="https://www.microsoft.com/en-us/microsoft-365/sharepoint/collaboration/" class="inline-flex justify-center items-center w-full rounded-xl bg-fhv-violet px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-fhv-violet/90 transition" data-i18n="resources.card2.cta">Browse study groups</a>
+            </article>
+
+            <article class="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-fhv-red/15 text-fhv-red mb-4">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                </div>
+                <h2 class="text-xl font-semibold text-fhv-dark dark:text-white mb-2">RUN-EU</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 flex-1 mb-6" data-i18n="resources.card3.body">European University Network: mobility, research, joint modules and partner institutions for student learning opportunities.</p>
+                <a href="https://run-eu.eu/learning-opportunities/" class="inline-flex justify-center items-center w-full rounded-xl border-2 border-fhv-red text-fhv-red px-4 py-3 text-sm font-semibold hover:bg-fhv-red/10 dark:hover:bg-fhv-red/20 transition" data-i18n="resources.card3.cta">RUN-EU portal</a>
+            </article>
+        </div>
+    </div>
+
+    <script src="german.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

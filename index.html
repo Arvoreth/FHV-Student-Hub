@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="index.documentTitle">Dashboard – FHV Student Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'fhv-blue': '#97cff1',
+                        'fhv-violet': '#C0A1CC',
+                        'fhv-red': '#ee7551',
+                        'fhv-yellow': '#ffdc5f',
+                        'fhv-dark': '#16161d',
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-fhv-dark text-fhv-dark dark:text-gray-100 min-h-screen font-sans antialiased">
+    <header class="bg-white dark:bg-gray-800/50 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 shadow-sm sticky top-0 z-50 px-4 sm:px-6 py-3 sm:py-4 relative">
+        <div class="max-w-7xl mx-auto flex w-full items-center gap-2 sm:gap-3">
+            <a href="index.html" class="text-lg sm:text-2xl font-bold bg-gradient-to-r from-fhv-blue to-fhv-violet bg-clip-text text-transparent shrink-0 min-w-0">FHV Student Hub</a>
+            <nav class="hidden md:flex flex-1 flex-wrap items-center gap-0.5 sm:gap-1 text-xs sm:text-sm font-medium min-w-0 ml-1 lg:ml-4" aria-label="Main">
+                <a href="index.html" class="nav-link nav-link--active rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 transition" aria-current="page" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="courses.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.courses">Courses</a>
+                <a href="resources.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.resources">Resources</a>
+                <a href="benefits.html" class="nav-link rounded-lg px-2 py-1.5 sm:px-3 sm:py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-fhv-dark dark:hover:text-white transition" data-i18n="nav.benefits">Benefits</a>
+            </nav>
+            <div class="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
+                <div class="hidden md:flex items-center gap-0.5 sm:gap-1">
+                    <div class="relative">
+                        <button id="profile-dropdown" type="button" class="flex max-w-[10rem] sm:max-w-none items-center gap-1 p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition text-xs sm:text-sm font-medium text-fhv-dark dark:text-gray-100">
+                            <span class="truncate">Aisha Faller</span>
+                            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="profile-menu" class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hidden py-1 z-50">
+                            <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                                <p class="font-semibold text-fhv-dark dark:text-white">Aisha Faller</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400">Computer Science</p>
+                            </div>
+                            <div class="p-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-600">
+                                <p class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-fhv-dark dark:text-gray-200">Matriculation: 12345678</p>
+                            </div>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.notifications">Notifications</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.settings">Profile Settings</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.logout">Logout</a>
+                        </div>
+                    </div>
+                    <button type="button" id="language-toggle" class="language-toggle inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 text-xs font-bold text-fhv-dark dark:text-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all" aria-label="Language: English. Click to switch to German.">
+                        <span class="language-text-en" aria-hidden="true">EN</span>
+                        <span class="language-text-de hidden" aria-hidden="true">DE</span>
+                    </button>
+                    <button id="theme-toggle" type="button" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-label="Toggle theme">
+                        <svg id="sun-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+                        <svg id="moon-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+                <button id="nav-menu-toggle" type="button" class="md:hidden p-2 rounded-lg text-fhv-dark dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition" aria-controls="mobile-nav-panel" aria-expanded="false" aria-label="Open navigation menu">
+                    <svg id="nav-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                    <svg id="nav-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-nav-panel" class="hidden md:hidden absolute left-0 right-0 top-full max-h-[min(85vh,calc(100dvh-4rem))] overflow-y-auto border-t border-gray-200 dark:border-gray-700 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg z-[60]" role="dialog" aria-label="Main navigation">
+            <nav class="flex flex-col p-2 max-w-7xl mx-auto" aria-label="Main">
+                <a href="index.html" class="nav-link nav-link--active rounded-lg px-4 py-3 text-base font-medium transition" aria-current="page" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="courses.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.courses">Courses</a>
+                <a href="resources.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.resources">Resources</a>
+                <a href="benefits.html" class="nav-link rounded-lg px-4 py-3 text-base text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition" data-i18n="nav.benefits">Benefits</a>
+            </nav>
+            <div class="border-t border-gray-200 dark:border-gray-700 p-3 max-w-7xl mx-auto">
+                <div class="relative">
+                    <button id="profile-dropdown-mobile" type="button" class="flex w-full items-center justify-between gap-2 rounded-lg p-3 text-left text-sm font-medium text-fhv-dark dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <span>Aisha Faller</span>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="profile-menu-mobile" class="mt-1 hidden w-full overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-1 shadow-md">
+                        <div class="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                            <p class="font-semibold text-fhv-dark dark:text-white">Aisha Faller</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Computer Science</p>
+                        </div>
+                        <div class="p-3 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-200 dark:border-gray-600">
+                            <p class="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-fhv-dark dark:text-gray-200">Matriculation: 12345678</p>
+                        </div>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.notifications">Notifications</a>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.settings">Profile Settings</a>
+                        <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition" data-i18n="profile.logout">Logout</a>
+                    </div>
+                </div>
+                <div class="mt-3 flex items-center justify-between gap-3 border-t border-gray-100 pt-3 dark:border-gray-700/80">
+                    <button type="button" id="language-toggle-mobile" class="language-toggle inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 text-xs font-bold text-fhv-dark dark:text-gray-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 transition-all" aria-label="Language: English. Click to switch to German.">
+                        <span class="language-text-en" aria-hidden="true">EN</span>
+                        <span class="language-text-de hidden" aria-hidden="true">DE</span>
+                    </button>
+                    <button id="theme-toggle-mobile" type="button" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all" aria-label="Toggle theme">
+                        <svg id="sun-icon-mobile" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path></svg>
+                        <svg id="moon-icon-mobile" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="nav-backdrop" class="fixed inset-0 z-40 bg-black/25 transition-opacity hidden" aria-hidden="true"></div>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] xl:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] gap-6 lg:gap-8 lg:items-stretch lg:min-h-0">
+            <div class="flex min-h-0 flex-col lg:h-full lg:max-w-md">
+            <!-- Internal links: compact column (stretches to match Upcoming Events height on large screens) -->
+            <section class="bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-5 shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col min-h-0 lg:flex-1 lg:min-h-0">
+                <h2 class="text-lg font-semibold mb-3 sm:mb-4 text-fhv-dark dark:text-white" data-i18n="index.internalLinksHeading">Internal Student Links</h2>
+                <ul class="flex flex-col gap-2 sm:gap-2.5">
+                    <li>
+                        <a href="https://a5.fhv.at/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-blue hover:bg-fhv-blue/10 dark:hover:bg-fhv-blue/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-blue/20 text-fhv-blue dark:bg-fhv-blue/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25M3 18.75A2.25 2.25 0 005.25 21h13.5a2.25 2.25 0 002.25-2.25M3 18.75v-7.5a2.25 2.25 0 012.25-2.25h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-blue dark:group-hover:text-fhv-blue transition-colors">A5</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.a5.desc">Timetable, grades, exam dates</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ilias.fhv.at/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-violet hover:bg-fhv-violet/10 dark:hover:bg-fhv-violet/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-violet/20 text-fhv-violet dark:bg-fhv-violet/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-violet transition-colors">ILIAS</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.ilias.desc">Course material, assignments, submissions</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://my.fhv.at/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-red hover:bg-fhv-red/10 dark:hover:bg-fhv-red/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-red/15 text-fhv-red dark:bg-fhv-red/25">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008H18V11.25zm0 3h.008v.008H18V14.25zm0 3h.008v.008H18V17.25z"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-red transition-colors">MY FHV</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.myfhv.desc">Print accounting, evaluations, support</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://outlook.office.com/mail/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-blue hover:bg-fhv-blue/10 dark:hover:bg-fhv-blue/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-blue/20 text-fhv-blue dark:bg-fhv-blue/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-blue transition-colors">Webmail</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.webmail.desc">Outlook for FHV mail</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://oeh-fhv.at/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-violet hover:bg-fhv-violet/10 dark:hover:bg-fhv-violet/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-violet/20 text-fhv-violet dark:bg-fhv-violet/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.09 9.09 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-violet transition-colors">ÖH</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.oeh.desc">Student union, events, representation</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://inside.fhv.at/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-red hover:bg-fhv-red/10 dark:hover:bg-fhv-red/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-red/15 text-fhv-red dark:bg-fhv-red/25">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-red transition-colors">FHV Inside</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.inside.desc">Program info and internal news</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://fhv.summon.serialssolutions.com/#!/" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-blue hover:bg-fhv-blue/10 dark:hover:bg-fhv-blue/15 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-blue/20 text-fhv-blue dark:bg-fhv-blue/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-blue transition-colors">Olav</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.link.olav.desc">Library search &amp; literature</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://laendlegastronomie.at/menue.html#menue_fhmensa" target="_blank" rel="noopener noreferrer" class="internal-link-card group flex gap-2.5 rounded-lg border border-gray-200 dark:border-gray-600 p-2.5 sm:p-3 hover:border-fhv-violet hover:bg-fhv-violet/15 dark:hover:bg-fhv-violet/20 hover:shadow-sm transition-all">
+                            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-fhv-violet/20 text-fhv-violet dark:bg-fhv-violet/30">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.97 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h7.875c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+                            </span>
+                            <span class="min-w-0 flex flex-col justify-center">
+                                <span class="text-sm font-bold text-fhv-dark dark:text-white group-hover:text-fhv-violet transition-colors" data-i18n="index.cafeteriaTitle">Cafeteria Menu</span>
+                                <span class="text-xs text-gray-600 dark:text-gray-400 leading-snug" data-i18n="index.cafeteriaBody">Weekly menus for the FH Mensa</span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            </div>
+
+            <!-- Upcoming events: list / calendar toggle + dynamic month grid -->
+            <section class="bg-white dark:bg-gray-800 rounded-2xl p-5 sm:p-6 lg:p-7 shadow-sm border border-gray-200 dark:border-gray-700 flex min-h-0 flex-col lg:h-full lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-hidden">
+                <div class="shrink-0 mb-4">
+                    <h2 class="text-xl sm:text-2xl font-semibold text-fhv-dark dark:text-white" data-i18n="index.eventsHeading">Upcoming Events</h2>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-xl" data-i18n="index.eventsSub">Filter events and switch between agenda and calendar using the toggle next to the filter.</p>
+                    <div class="mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+                        <div class="flex flex-col gap-1.5 sm:flex-row sm:items-end sm:gap-3" id="event-view-toggle-wrap">
+                            <div class="inline-flex rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-100/90 dark:bg-gray-900/70 p-0.5 shadow-sm" role="group" aria-label="Switch between agenda and calendar views">
+                                <button type="button" id="event-view-list" class="event-view-toggle group relative inline-flex items-center justify-center rounded-lg px-3 py-2 text-fhv-dark transition hover:bg-white/80 dark:text-gray-100 dark:hover:bg-gray-800" aria-pressed="true" aria-label="Agenda view">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
+                                    <span class="pointer-events-none absolute bottom-full left-1/2 z-30 mb-2 w-max -translate-x-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100" role="tooltip">
+                                        <span class="flex flex-col items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-center shadow-lg dark:border-gray-600 dark:bg-gray-800">
+                                            <svg class="h-8 w-10 text-gray-400 dark:text-gray-500" viewBox="0 0 40 32" fill="none" aria-hidden="true"><rect x="2" y="4" width="36" height="26" rx="2" stroke="currentColor" stroke-width="1.25"/><path stroke="currentColor" stroke-width="1" d="M2 11h36M10 4v22M18 11V4M26 11V4M34 11V4"/><path stroke="currentColor" stroke-width="1.25" stroke-linecap="round" d="M6 16h6M6 20h6M6 24h4"/></svg>
+                                            <span class="text-[11px] font-semibold text-fhv-dark dark:text-gray-100" data-i18n="index.viewTooltipList">Agenda view</span>
+                                        </span>
+                                    </span>
+                                </button>
+                                <button type="button" id="event-view-calendar" class="event-view-toggle group relative inline-flex items-center justify-center rounded-lg px-3 py-2 text-fhv-dark transition hover:bg-white/80 dark:text-gray-100 dark:hover:bg-gray-800" aria-pressed="false" aria-label="Calendar view">
+                                    <svg class="h-5 w-5 shrink-0" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25M3 18.75A2.25 2.25 0 005.25 21h13.5a2.25 2.25 0 002.25-2.25M3 18.75v-7.5a2.25 2.25 0 012.25-2.25h13.5a2.25 2.25 0 012.25 2.25v7.5"/></svg>
+                                    <span class="pointer-events-none absolute bottom-full left-1/2 z-30 mb-2 w-max -translate-x-1/2 opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100" role="tooltip">
+                                        <span class="flex flex-col items-center gap-1 rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-center shadow-lg dark:border-gray-600 dark:bg-gray-800">
+                                            <svg class="h-8 w-10 text-gray-400 dark:text-gray-500" viewBox="0 0 40 32" fill="none" aria-hidden="true"><rect x="2" y="6" width="36" height="24" rx="2" stroke="currentColor" stroke-width="1.25"/><path stroke="currentColor" stroke-width="1" d="M2 12h36M14 6V4a1 1 0 011-1h10a1 1 0 011 1v2"/><circle cx="10" cy="18" r="1" fill="currentColor"/><circle cx="20" cy="18" r="1" fill="currentColor"/><circle cx="30" cy="18" r="1" fill="currentColor"/><circle cx="10" cy="24" r="1" fill="currentColor"/><circle cx="20" cy="24" r="1" fill="currentColor"/></svg>
+                                            <span class="text-[11px] font-semibold text-fhv-dark dark:text-gray-100" data-i18n="index.viewTooltipCalendar">Calendar view</span>
+                                        </span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-1.5 sm:items-end sm:ml-auto">
+                            <label for="event-filter" class="text-xs font-medium uppercase tracking-wide text-gray-500 dark:text-gray-400" data-i18n="index.filterLabel">Filter</label>
+                            <select id="event-filter" class="event-filter-select w-full sm:w-52 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-fhv-dark dark:text-gray-100 text-sm py-2 pl-3 pr-8 shadow-sm focus:outline-none focus:ring-2 focus:ring-fhv-blue/60 dark:focus:ring-fhv-violet/50">
+                                <option value="all" data-i18n="index.filter.all">All events</option>
+                                <option value="fhv" data-i18n="index.filter.fhv">FHV only</option>
+                                <option value="oh" data-i18n="index.filter.oh">ÖH only</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="event-views-container" class="flex min-h-0 min-w-0 w-full flex-1 flex-col overflow-hidden max-h-[32rem] -mr-1 pr-1">
+                <div id="event-list-panel" class="event-list-scroll flex min-h-0 max-h-full min-w-0 flex-1 flex-col overflow-y-auto overflow-x-hidden rounded-xl border border-gray-100 dark:border-gray-600/80 bg-gray-50/60 dark:bg-gray-900/30">
+                    <ul id="event-list" class="space-y-2.5 p-3 pb-2">
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-blue/10 dark:bg-fhv-blue/20" data-event-type="fhv" data-event-date="2026-03-20">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-blue text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">20<br>Mar</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-blue dark:text-fhv-blue mb-0.5">FHV</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event1.title">Database Workshop</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event1.meta">14:00–16:00, Room U206</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-03-28">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">28<br>Mar</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event2.title">Semester Opening Party</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event2.meta">20:00, Fischbach</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-blue/10 dark:bg-fhv-blue/20" data-event-type="fhv" data-event-date="2026-04-08">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-blue text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">8<br>Apr</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-blue dark:text-fhv-blue mb-0.5">FHV</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event3.title">Career Fair</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event3.meta">16:00–19:00, Foyer</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-04-24">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">24<br>Apr</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event4.title">Film Night</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event4.meta">18:00, ÖH Room</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-04-28">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">28<br>Apr</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event4.title">Paint & Wine</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event5.meta">18:00, Createria Studio Bregenz</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-04-30">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">30<br>Apr</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event5.title">Cafè Campus Gamenight</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event5.meta">Evening, campus</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-blue/10 dark:bg-fhv-blue/20" data-event-type="fhv" data-event-date="2026-05-04">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-blue text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">4<br>May</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-blue dark:text-fhv-blue mb-0.5">FHV</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event6.title">WiDS – Academic Talks</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event6.meta">9:00–18:00, Foyer</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-05-15">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">15<br>May</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event7.title">Pottery Class</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event7.meta">Details on ÖH website</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-06-20">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">20<br>June</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event8.title">Paint &amp; Wine</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event8.meta">Registration via ÖH</p>
+                            </div>
+                        </li>
+                        <li class="event-row flex flex-wrap items-start gap-2.5 p-2.5 rounded-lg bg-fhv-violet/10 dark:bg-fhv-violet/20" data-event-type="oh" data-event-date="2026-07-10">
+                            <div class="w-11 h-11 shrink-0 bg-fhv-violet text-white rounded-lg flex flex-col items-center justify-center font-bold text-xs leading-tight text-center">10<br>July</div>
+                            <div class="min-w-0 flex-1">
+                                <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-fhv-violet mb-0.5">ÖH</span>
+                                <h3 class="text-sm font-semibold" data-i18n="index.event9.title">Summer Semester Closing Party</h3>
+                                <p class="text-xs text-gray-600 dark:text-gray-300" data-i18n="index.event9.meta">End of semester celebration</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="event-calendar-panel" class="hidden flex min-h-0 max-h-full min-w-0 flex-1 flex-col overflow-hidden rounded-xl border border-gray-100 dark:border-gray-600/80 bg-gray-50/60 dark:bg-gray-900/30 p-3 sm:p-4" role="region" aria-label="Events calendar">
+                    <div class="flex shrink-0 items-center justify-between gap-2 mb-3">
+                        <button type="button" id="event-cal-prev" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-300 bg-white text-sm font-semibold text-fhv-dark shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 transition" aria-label="Previous month">&lsaquo;</button>
+                        <h3 id="event-cal-month-label" class="min-w-0 flex-1 text-center text-sm font-semibold text-fhv-dark dark:text-white truncate"></h3>
+                        <button type="button" id="event-cal-next" class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-300 bg-white text-sm font-semibold text-fhv-dark shadow-sm hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:hover:bg-gray-700 transition" aria-label="Next month">&rsaquo;</button>
+                    </div>
+                    <div class="grid shrink-0 grid-cols-7 gap-x-0.5 text-center text-[10px] sm:text-xs font-medium text-gray-500 dark:text-gray-400 pb-1 border-b border-gray-200/80 dark:border-gray-600/60" id="event-cal-weekdays">
+                        <span data-i18n="index.cal.mo">Mo</span>
+                        <span data-i18n="index.cal.tu">Tu</span>
+                        <span data-i18n="index.cal.we">We</span>
+                        <span data-i18n="index.cal.th">Th</span>
+                        <span data-i18n="index.cal.fr">Fr</span>
+                        <span data-i18n="index.cal.sa">Sa</span>
+                        <span data-i18n="index.cal.su">Su</span>
+                    </div>
+                    <div id="event-cal-dates" class="event-cal-dates-grid mt-2 grid min-h-0 flex-1 grid-cols-7 gap-x-0.5 gap-y-1 overflow-y-auto overflow-x-hidden text-left text-[9px] sm:text-[10px] leading-snug content-start auto-rows-min"></div>
+                    <div class="mt-3 flex shrink-0 flex-wrap items-center gap-x-4 gap-y-1 border-t border-gray-200/80 dark:border-gray-600/60 pt-2 text-[10px] text-gray-600 dark:text-gray-400">
+                        <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 shrink-0 rounded-full bg-fhv-blue" aria-hidden="true"></span><span data-i18n="index.calendarLegendFhv">FHV event</span></span>
+                        <span class="inline-flex items-center gap-1.5"><span class="h-1.5 w-1.5 shrink-0 rounded-full bg-fhv-violet" aria-hidden="true"></span><span data-i18n="index.calendarLegendOh">ÖH event</span></span>
+                    </div>
+                </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div id="event-cal-hover-card" class="fixed z-[70] hidden max-w-[16rem] rounded-lg border border-gray-200 bg-white px-2.5 py-2 text-left text-[10px] shadow-xl dark:border-gray-600 dark:bg-gray-800 pointer-events-none" role="tooltip" aria-hidden="true"></div>
+
+    <script src="german.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

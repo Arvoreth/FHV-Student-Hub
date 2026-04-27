@@ -1,0 +1,67 @@
+/**
+ * FHV Student Hub — design tokens and custom layout.
+ * Tailwind theme colors in index.html match these :root values.
+ */
+:root {
+    --fhv-blue: #97cff1;
+    --fhv-violet: #c0a1cc;
+    --fhv-red: #ee7551;
+    --fhv-yellow: #ffdc5f;
+    --fhv-dark: #16161d;
+}
+
+/* Calendar grid (used if you switch to a full grid later) */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: currentColor;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+}
+
+/* Main nav (Dashboard / Courses) */
+.nav-link--active {
+    background-color: rgba(151, 207, 241, 0.25);
+    color: var(--fhv-dark);
+}
+
+.dark .nav-link--active {
+    background-color: rgba(192, 161, 204, 0.25);
+    color: #f3f4f6;
+}
+
+.event-filter-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.25rem;
+    appearance: none;
+}
+
+.event-list-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(151, 207, 241, 0.6) transparent;
+}
+
+.dark .event-list-scroll {
+    scrollbar-color: rgba(192, 161, 204, 0.5) transparent;
+}
+
+.event-list-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.event-list-scroll::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: rgba(151, 207, 241, 0.55);
+}
+
+.dark .event-list-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(192, 161, 204, 0.45);
+}
